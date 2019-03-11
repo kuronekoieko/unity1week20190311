@@ -19,6 +19,15 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = new Vector2(key_x, key_y) * walkSpeed;
+
+        //float x = key_x * Mathf.Abs(transform.localScale.x);
+        float x = key_x;
+        if (key_x == 0) x = transform.localScale.x;
+        float y = transform.localScale.y;
+        float z = transform.localScale.z;
+        transform.localScale = new Vector3(x, y, z);
+
+
     }
 
     // Update is called once per frame
