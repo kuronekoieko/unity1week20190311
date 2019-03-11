@@ -18,6 +18,6 @@ public class CameraController : MonoBehaviour
         float x = playerController.gameObject.transform.position.x;
         float y = playerController.gameObject.transform.position.y;
         float z = transform.position.z;
-        transform.position = new Vector3(x, y, z);
+        //transform.position = new Vector3(x, y, z);
     }
 }

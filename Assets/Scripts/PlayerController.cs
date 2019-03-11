@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class PlayerController : MonoBehaviour
 {
 
-    Rigidbody2D rb;
-    float walkSpeed = 10.0f;
+   [NonSerialized] public Rigidbody2D rb;
+    [NonSerialized] public float walkSpeed = 10.0f;
     int key_x = 0;
     int key_y = 0;
 
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = new Vector2(key_x, key_y) * walkSpeed;
-
+        Debug.Log(rb.velocity);
         //float x = key_x * Mathf.Abs(transform.localScale.x);
         float x = key_x;
         if (key_x == 0) x = transform.localScale.x;
