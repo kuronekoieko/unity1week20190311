@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
+
+
 public class PlayerController : MonoBehaviour
 {
 
     Rigidbody2D rb;
     int key_x = 0;
     int key_y = 0;
+
+    int catCount;
 
     [SerializeField] CatController neko_0;
     [SerializeField] CatController neko_1;
@@ -20,7 +25,9 @@ public class PlayerController : MonoBehaviour
 
     CatController[] nekos;
 
-    CatController[] cats_0;
+    //CatController[] catsStock;
+
+    List<CatController> catList;
 
     // Start is called before the first frame update
     void Start()
@@ -37,8 +44,9 @@ public class PlayerController : MonoBehaviour
         nekos[6] = neko_6;
         nekos[7] = neko_7;
 
-        cats_0 = new CatController[Variable.catsCount * 8];
-        CatsGenerator();
+        catList = new List<CatController>();
+        //catsStock = new CatController[Variable.catsCount * 8];
+        //CatsGenerator();
 
 
     }
@@ -55,6 +63,23 @@ public class PlayerController : MonoBehaviour
         transform.localScale = new Vector3(x, y, z);
 
 
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag.Equals("cat"))
+        {
+            Debug.Log("ねこ");
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag.Equals("cat"))
+        {
+            Debug.Log("ねこ");
+            CatAddList(other.gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -81,6 +106,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void CatAddList(GameObject cat)
+    {
+        catList.Add(cat.GetComponent<CatController>());
+        // cat.name = catCount.ToString();
+
+        if (catCount == 0)
+        {
+            catList[catCount].targetObj = gameObject;
+
+        }
+        else
+        {
+            catList[catCount].targetObj = catList[catCount - 1].gameObject;
+        }
+        catList[catCount].isChase = true;
+        catCount++;
+    }
+
     void CatsGenerator()
     {
 
@@ -90,17 +133,21 @@ public class PlayerController : MonoBehaviour
 
             GameObject cat = Instantiate(nekos[i].gameObject, transform.position, Quaternion.identity);
             cat.name = i.ToString();
-            cats_0[i] = cat.GetComponent<CatController>();
+            catList.Add(cat.GetComponent<CatController>());
+
+            // Debug.Log(i + ":" + catList[i].name);
 
             //一匹目はプレイヤーにする
             if (i == 0)
             {
-                cats_0[i].targetObj = gameObject;
+                catList[i].targetObj = gameObject;
+
             }
             else
             {
-                cats_0[i].targetObj = cats_0[i - 1].gameObject;
+                catList[i].targetObj = catList[i - 1].gameObject;
             }
+            catList[i].isChase = true;
         }
 
 

@@ -7,6 +7,8 @@ using System;
 public class CatController : MonoBehaviour
 {
     Rigidbody2D rb;
+    BoxCollider2D boxCol;
+    [NonSerialized] public bool isChase;
 
     //[SerializeField] PlayerController playerController;
     [NonSerialized] public GameObject targetObj;
@@ -15,18 +17,19 @@ public class CatController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        boxCol = GetComponent<BoxCollider2D>();
     }
     private void FixedUpdate()
     {
         //targetObj = playerController.gameObject;
         //追従ロジック
-        ChaseTarget(targetObj.transform.position);
+        if (isChase) ChaseTarget(targetObj.transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        boxCol.enabled = !isChase;
         //画像の左右反転
         SetLocalScale();
 
