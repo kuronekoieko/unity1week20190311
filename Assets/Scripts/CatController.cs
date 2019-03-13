@@ -13,6 +13,15 @@ public class CatController : MonoBehaviour
     //[SerializeField] PlayerController playerController;
     [NonSerialized] public GameObject targetObj;
 
+    float timer;
+    [NonSerialized] public double walkTime;
+
+
+
+    [NonSerialized] public float key_x;
+    [NonSerialized] public float key_y;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,9 +30,16 @@ public class CatController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //targetObj = playerController.gameObject;
+
         //追従ロジック
-        if (isChase) ChaseTarget(targetObj.transform.position);
+        if (isChase)
+        {
+            ChaseTarget(targetObj.transform.position);
+        }
+        else
+        {
+            AutoMove();
+        }
     }
 
     // Update is called once per frame
@@ -32,6 +48,23 @@ public class CatController : MonoBehaviour
         boxCol.enabled = !isChase;
         //画像の左右反転
         SetLocalScale();
+
+    }
+
+    void AutoMove()
+    {
+        timer += Time.fixedDeltaTime;
+
+        if (timer < walkTime)
+        {
+            rb.velocity = new Vector2(key_x, key_y);
+        }
+        else
+        {
+            key_x *= -1;
+            key_y *= -1;
+            timer = 0;
+        }
 
     }
 

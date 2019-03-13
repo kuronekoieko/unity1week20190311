@@ -8,11 +8,11 @@ using System.Linq;
 public class PlayerController : MonoBehaviour
 {
 
-    Rigidbody2D rb;
+    [NonSerialized] public Rigidbody2D rb;
     int key_x = 0;
     int key_y = 0;
 
-    int catCount;
+    //int Variable.catCount;
 
     [SerializeField] CatController neko_0;
     [SerializeField] CatController neko_1;
@@ -65,28 +65,33 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.tag.Equals("cat"))
-        {
-            Debug.Log("ねこ");
-        }
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (Variable.isTimeUp) return;
+
         if (other.gameObject.tag.Equals("cat"))
         {
             Debug.Log("ねこ");
             CatAddList(other.gameObject);
         }
+        if (other.gameObject.tag.Equals("water"))
+        {
+            Debug.Log("水");
+            CatRemoveList();
+        }
+
     }
+
+
 
     // Update is called once per frame
     void Update()
     {
+
         key_x = 0;
         key_y = 0;
+
+        if (Variable.isTimeUp) return;
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
@@ -104,53 +109,39 @@ public class PlayerController : MonoBehaviour
         {
             key_x = -1;
         }
+
+    }
+
+    void CatRemoveList()
+    {
+        //if (Variable.catCount == 0) return;
+
+        while (Variable.catCount > 0)
+        {
+            Variable.catCount--;
+            catList[Variable.catCount].isChase = false;
+            catList.RemoveAt(Variable.catCount);
+        }
+
     }
 
     void CatAddList(GameObject cat)
     {
         catList.Add(cat.GetComponent<CatController>());
-        // cat.name = catCount.ToString();
+        // cat.name = Variable.catCount.ToString();
 
-        if (catCount == 0)
+        if (Variable.catCount == 0)
         {
-            catList[catCount].targetObj = gameObject;
+            catList[Variable.catCount].targetObj = gameObject;
 
         }
         else
         {
-            catList[catCount].targetObj = catList[catCount - 1].gameObject;
+            catList[Variable.catCount].targetObj = catList[Variable.catCount - 1].gameObject;
         }
-        catList[catCount].isChase = true;
-        catCount++;
+        catList[Variable.catCount].isChase = true;
+        Variable.catCount++;
     }
 
-    void CatsGenerator()
-    {
-
-
-        for (int i = 0; i < Variable.catsCount; i++)
-        {
-
-            GameObject cat = Instantiate(nekos[i].gameObject, transform.position, Quaternion.identity);
-            cat.name = i.ToString();
-            catList.Add(cat.GetComponent<CatController>());
-
-            // Debug.Log(i + ":" + catList[i].name);
-
-            //一匹目はプレイヤーにする
-            if (i == 0)
-            {
-                catList[i].targetObj = gameObject;
-
-            }
-            else
-            {
-                catList[i].targetObj = catList[i - 1].gameObject;
-            }
-            catList[i].isChase = true;
-        }
-
-
-    }
 
 }

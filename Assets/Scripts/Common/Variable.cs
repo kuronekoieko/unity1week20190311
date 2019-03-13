@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Variable
 {
-    public static float walkSpeed = 10.0f;
+    public static float walkSpeed = 15.0f;
 
-    public static int catsCount = 8;
+    public static int catCount;
+
+    public static bool isTimeUp;
 }
