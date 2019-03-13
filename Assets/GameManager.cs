@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text timeText;
     [SerializeField] Text catCountText;
     float second;
-    float limitTimeSec = 30;
+    //float limitTimeSec = 30;
 
     // Start is called before the first frame update
     void Start()
@@ -21,14 +21,14 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        if (second > limitTimeSec)
+        if (second > Variable.limitTimeSec)
         {
             timeText.text = "Time UP!!!!";
             Variable.isTimeUp = true;
         }
         else
         {
-            timeText.text = (limitTimeSec - second).ToString("F");
+            timeText.text = (Variable.limitTimeSec - second).ToString("F");
         }
         second += Time.deltaTime;
 
