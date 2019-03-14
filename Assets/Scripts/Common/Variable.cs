@@ -12,7 +12,7 @@ public class Variable
         isStart = false;
     }
 
-    public static float walkSpeed = 30.0f;
+    public static float walkSpeed = 15.0f;
 
     public static int catCount;
 
