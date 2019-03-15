@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+
+
 
 public class GameManager : MonoBehaviour
 {
@@ -11,8 +14,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text resultCatCountText;
 
     [SerializeField] GameObject resultPanel;
+    [SerializeField] GameObject tutrialPanel;
+    [SerializeField] GameObject resultDialogPanel;
+
+
+    [SerializeField] Text countDownText;
+
+
     float second;
-    //float limitTimeSec = 30;
+    int countDownsec;
 
 
     // Start is called before the first frame update
@@ -20,37 +30,69 @@ public class GameManager : MonoBehaviour
     {
         Variable.InitVariable();
         timeText.text = Variable.limitTimeSec.ToString() + ".00";
-        catCountText.text = "ﾈｺﾁｬﾝ " + Variable.catCount.ToString() + " 匹";
+        catCountText.text = Variable.catCount.ToString();
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        switch (Variable.gameState)
+        {
+            case GameState.TUTORIAL:
+                break;
+            case GameState.COUNT_DOWN:
+                CountDown();
+                break;
+            case GameState.PLAY:
+                TextChange();
+                CheckTimeUp();
+                break;
+            case GameState.RESULT:
+                ShowResultDialogPanel();
+                break;
+            default:
+                break;
+        }
 
-        if (!Variable.isStart) return;
+    }
 
-        TextChange();
+    void CountDown()
+    {
+        second += Time.deltaTime;
+        countDownsec = (int)(4 - second);
+        countDownText.text = countDownsec.ToString();
+        if (second > 3.0f)
+        {
+            tutrialPanel.SetActive(false);
+            Variable.gameState = GameState.PLAY;
+        }
 
     }
 
     void TextChange()
     {
-        if (second > Variable.limitTimeSec)
-        {
-            timeText.text = "Time UP!!!!";
-            Variable.isTimeUp = true;
-            resultCatCountText.text = Variable.catCount.ToString();
-            resultPanel.SetActive(true);
-        }
-        else
-        {
-            timeText.text = (Variable.limitTimeSec - second).ToString("F");
-        }
+        timeText.text = (Variable.limitTimeSec - second).ToString("F");
+        catCountText.text = Variable.catCount.ToString();
+    }
+
+    void CheckTimeUp()
+    {
         second += Time.deltaTime;
+        if (second < Variable.limitTimeSec) return;
+        second = 0;
+        timeText.text = "00.00";
+        resultCatCountText.text = Variable.catCount.ToString() + " 匹";
+        resultPanel.SetActive(true);
+        resultDialogPanel.SetActive(false);
+        Variable.gameState = GameState.RESULT;
+    }
 
-        catCountText.text = "ﾈｺﾁｬﾝ " + Variable.catCount.ToString() + " 匹";
-
+    void ShowResultDialogPanel()
+    {
+        second += Time.deltaTime;
+        if (second < Variable.resultIntervalSec) return;
+        resultDialogPanel.SetActive(true);
     }
 
 

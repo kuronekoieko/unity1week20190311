@@ -39,7 +39,8 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (Variable.isTimeUp) return;
+        //プレイ状態しか受け付けない
+        if (Variable.gameState != GameState.PLAY) return;
 
         if (other.gameObject.tag.Equals("cat"))
         {
@@ -65,7 +66,8 @@ public class PlayerController : MonoBehaviour
         dx = 0;
         dy = 0;
 
-        if (Variable.isTimeUp) return;
+        //プレイヤーのキー操作はプレイ状態でしか受け付けない
+        if (Variable.gameState != GameState.PLAY) return;
 
         if (Input.GetKey(KeyCode.UpArrow))
         {

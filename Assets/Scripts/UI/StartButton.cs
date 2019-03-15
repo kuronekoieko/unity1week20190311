@@ -5,7 +5,7 @@ using UnityEngine;
 public class StartButton : MonoBehaviour
 {
 
-    [SerializeField] GameObject startPanel;
+    [SerializeField] GameObject tutrialDialogPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +20,9 @@ public class StartButton : MonoBehaviour
 
     public void GameStart()
     {
-        Variable.isStart = true;
+        Variable.gameState = GameState.COUNT_DOWN;
         Time.timeScale = 1.0f;
-        startPanel.SetActive(false);
+        tutrialDialogPanel.SetActive(false);
+
     }
 }
