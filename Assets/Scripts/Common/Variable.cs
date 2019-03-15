@@ -29,5 +29,5 @@ public class Variable
     public static float resultIntervalSec = 2.0f;
     public static GameState gameState;
 
-    public static string gameLink = "https://mobile.twitter.com/kuronekoieko";
+    public static string gameLink = "ゲームのリンク";
 }

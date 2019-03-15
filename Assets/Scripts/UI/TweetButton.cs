@@ -18,8 +18,9 @@ public class TweetButton : MonoBehaviour
 
     public void Tweet()
     {
-
-        string tweetText = "お友達になったﾈｺﾁｬﾝは…\n" + Variable.catCount + " 匹\nでした！！みんなもやってみよう！！！\n\n" + Variable.gameLink + "\n\n#つながるﾈｺﾁｬﾝ\n#unity1week";
+        string link = "\n\n" + Variable.gameLink;
+        link = "";
+        string tweetText = "お友達になったﾈｺﾁｬﾝは…\n" + Variable.catCount + " 匹\nでした！みんなもやってみよう！！！" + link + "\n\n#つながるﾈｺﾁｬﾝ\n#unity1week";
         Application.OpenURL("http://twitter.com/intent/tweet?text=" + WWW.EscapeURL(tweetText));
     }
 }
