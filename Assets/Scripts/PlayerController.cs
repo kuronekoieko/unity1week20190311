@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     int key_x = 0;
     int key_y = 0;
+    float dx;
+    float dy;
 
     List<CatController> catList;
 
@@ -24,6 +26,8 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = new Vector2(key_x, key_y).normalized * Variable.walkSpeed;
+        //rb.velocity = new Vector2(dx, dy) * Variable.walkSpeed;
+
         float x = key_x;
         if (key_x == 0) x = transform.localScale.x;
         float y = transform.localScale.y;
@@ -39,12 +43,12 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.tag.Equals("cat"))
         {
-            Debug.Log("ねこ");
+            //Debug.Log("ねこ");
             CatAddList(other.gameObject);
         }
         if (other.gameObject.tag.Equals("water"))
         {
-            Debug.Log("水");
+            //Debug.Log("水");
             CatRemoveList();
         }
 
@@ -58,6 +62,8 @@ public class PlayerController : MonoBehaviour
 
         key_x = 0;
         key_y = 0;
+        dx = 0;
+        dy = 0;
 
         if (Variable.isTimeUp) return;
 
@@ -77,6 +83,10 @@ public class PlayerController : MonoBehaviour
         {
             key_x = -1;
         }
+
+
+        dx = Input.GetAxis("Horizontal");
+        dy = Input.GetAxis("Vertical");
 
     }
 
