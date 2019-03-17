@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
                 CheckTimeUp();
                 break;
             case GameState.RESULT:
+
                 ShowResultDialogPanel();
                 break;
             default:
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
         countDownText.text = countDownsec.ToString();
         if (second > 3.0f)
         {
+            second = 0;
             tutrialPanel.SetActive(false);
             Variable.gameState = GameState.PLAY;
         }
@@ -80,18 +82,21 @@ public class GameManager : MonoBehaviour
     {
         second += Time.deltaTime;
         if (second < Variable.limitTimeSec) return;
+        Variable.audioSource[3].Play();
         second = 0;
         timeText.text = "00.00";
         resultCatCountText.text = Variable.catCount.ToString() + " 匹";
         resultPanel.SetActive(true);
         resultDialogPanel.SetActive(false);
         Variable.gameState = GameState.RESULT;
+
     }
 
     void ShowResultDialogPanel()
     {
         second += Time.deltaTime;
         if (second < Variable.resultIntervalSec) return;
+        Variable.audioSource[5].Play();
         resultDialogPanel.SetActive(true);
     }
 

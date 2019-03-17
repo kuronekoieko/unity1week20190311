@@ -7,6 +7,8 @@ public class ReStartButton : MonoBehaviour
 {
 
     [SerializeField] GameObject resultPanel;
+
+    bool isTapped;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,29 @@ public class ReStartButton : MonoBehaviour
 
     public void ReStart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (isTapped) return;
+        isTapped = true;
+
+        Variable.audioSource[1].Play();
+
+        StartCoroutine(Checking(() =>
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }));
+
+    }
+
+    public delegate void functionType();
+    private IEnumerator Checking(functionType callback)
+    {
+        while (true)
+        {
+            yield return new WaitForFixedUpdate();
+            if (!Variable.audioSource[1].isPlaying)
+            {
+                callback();
+                break;
+            }
+        }
     }
 }

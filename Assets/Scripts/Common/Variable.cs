@@ -27,10 +27,10 @@ public class Variable
         Variable.gameState = GameState.TUTORIAL;
     }
 
-    public static float walkSpeed = 13.0f;
+    public static float walkSpeed = 15.0f;
 
     public static int catCount;
-    public static float limitTimeSec = 30;
+    public static float limitTimeSec = 40;
 
     public static float cam_range_x = 1.0f;
     public static float cam_range_y = 0.5f;
@@ -39,5 +39,5 @@ public class Variable
 
     public static string gameLink = "ゲームのリンク";
 
-
+    public static AudioSource[] audioSource;
 }

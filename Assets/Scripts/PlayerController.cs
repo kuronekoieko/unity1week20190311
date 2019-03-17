@@ -44,12 +44,14 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.tag.Equals("cat"))
         {
-            //Debug.Log("ねこ");
             CatAddList(other.gameObject);
         }
         if (other.gameObject.tag.Equals("water"))
         {
-            //Debug.Log("水");
+            if (Variable.catCount != 0)
+            {
+                Variable.audioSource[4].Play();
+            }
             CatRemoveList();
         }
 

@@ -5,12 +5,10 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
 
-    [SerializeField] AudioClip cat1a;
-    [SerializeField] AudioClip cat1b;
-
     // Start is called before the first frame update
     void Start()
     {
+        Variable.audioSource = GetComponents<AudioSource>();
 
     }
 
