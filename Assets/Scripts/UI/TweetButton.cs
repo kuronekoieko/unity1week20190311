@@ -20,7 +20,7 @@ public class TweetButton : MonoBehaviour
     {
         Variable.audioSource[1].Play();
         string link = "\n\n" + Variable.gameLink;
-        link = "";
+        //link = "";
         string tweetText = "お友達になったﾈｺﾁｬﾝは…\n" + Variable.catCount + " 匹\nでした！みんなもやってみよう！！！" + link + "\n\n#つながるﾈｺﾁｬﾝ\n#unity1week";
         Application.OpenURL("http://twitter.com/intent/tweet?text=" + WWW.EscapeURL(tweetText));
     }
