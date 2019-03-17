@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using naichilab.Scripts.Internal;
 
 public class TweetButton : MonoBehaviour
 {
@@ -23,5 +24,7 @@ public class TweetButton : MonoBehaviour
         //link = "";
         string tweetText = "お友達になったﾈｺﾁｬﾝは…\n" + Variable.catCount + " 匹\nでした！みんなもやってみよう！！！" + link + "\n\n#つながるﾈｺﾁｬﾝ\n#unity1week";
         Application.OpenURL("http://twitter.com/intent/tweet?text=" + WWW.EscapeURL(tweetText));
+        naichilab.UnityRoomTweet.Tweet("tunagaru_nekochan", tweetText);
+
     }
 }

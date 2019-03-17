@@ -37,7 +37,7 @@ public class Variable
     public static float resultIntervalSec = 2.0f;
     public static GameState gameState;
 
-    public static string gameLink = "httpss://unityroom.com/games/tunagaru_nekochan";
+    public static string gameLink = "https://unityroom.com/games/tunagaru_nekochan";
 
     public static AudioSource[] audioSource;
 }

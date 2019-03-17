@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
     {
         second += Time.deltaTime;
         if (second < Variable.resultIntervalSec) return;
-        Variable.audioSource[5].Play();
+        //Variable.audioSource[5].Play();
         resultDialogPanel.SetActive(true);
     }
 
