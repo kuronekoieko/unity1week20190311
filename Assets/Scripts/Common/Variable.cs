@@ -10,6 +10,14 @@ public enum GameState
     RESULT,
 }
 
+public enum CatState
+{
+    TOUCH_WATER,//プレイヤーが水たまりに接触した瞬間
+    RELEASE,//自由に歩き回ってるとき
+    TOUCH_PLAYER,//プレイヤーに接触した瞬間
+    CHASE,//追従中
+}
+
 public class Variable
 {
 
@@ -30,4 +38,6 @@ public class Variable
     public static GameState gameState;
 
     public static string gameLink = "ゲームのリンク";
+
+
 }

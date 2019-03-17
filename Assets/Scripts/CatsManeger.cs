@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class CatsManeger : MonoBehaviour
 {
+    AudioSource audioSource;
+    AudioClip[] catCrys;
+    int i = 0;
 
-    CatController[] catControllers;
-    // Start is called before the first frame update
+    System.Random r = new System.Random(1000);
     void Start()
     {
-        System.Random r = new System.Random(1000);
-
-        catControllers = new CatController[transform.childCount];
+        audioSource = gameObject.GetComponent<AudioSource>();
+        catCrys = new AudioClip[transform.childCount];
 
         foreach (Transform child in transform)
         {
@@ -23,6 +24,8 @@ public class CatsManeger : MonoBehaviour
             cat.key_y = key_y;
             if (walkTime < 0.3) walkTime = 0.3;
             cat.walkTime = walkTime;
+            // cat.catCry = catCrys[i];
+            i++;
         }
     }
 

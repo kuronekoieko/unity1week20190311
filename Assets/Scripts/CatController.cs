@@ -6,46 +6,53 @@ using System;
 
 public class CatController : MonoBehaviour
 {
-    Rigidbody2D rb;
-    BoxCollider2D boxCol;
-    [NonSerialized] public bool isChase;
-
-    //[SerializeField] PlayerController playerController;
+    [NonSerialized] public CatState catState = CatState.TOUCH_WATER;
     [NonSerialized] public GameObject targetObj;
-
-    float timer;
     [NonSerialized] public double walkTime;
-
-
-
     [NonSerialized] public float key_x;
     [NonSerialized] public float key_y;
+    [NonSerialized] public AudioClip catCry;
+    Rigidbody2D rb;
+    BoxCollider2D boxCol;
+    float timer;
 
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         boxCol = GetComponent<BoxCollider2D>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = 0.5f;
     }
     private void FixedUpdate()
     {
-
-        //追従ロジック
-        if (isChase)
+        switch (catState)
         {
-            ChaseTarget(targetObj.transform.position);
-        }
-        else
-        {
-            AutoMove();
+            case CatState.TOUCH_WATER:
+                boxCol.enabled = true;
+                catState = CatState.RELEASE;
+                break;
+            case CatState.RELEASE:
+                AutoMove();
+                break;
+            case CatState.TOUCH_PLAYER:
+                boxCol.enabled = false;
+                audioSource.Play();
+                catState = CatState.CHASE;
+                break;
+            case CatState.CHASE:
+                ChaseTarget(targetObj.transform.position);
+                break;
+            default:
+                break;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        boxCol.enabled = !isChase;
         //画像の左右反転
         SetLocalScale();
 

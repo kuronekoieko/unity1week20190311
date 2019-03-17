@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         while (Variable.catCount > 0)
         {
             Variable.catCount--;
-            catList[Variable.catCount].isChase = false;
+            catList[Variable.catCount].catState = CatState.TOUCH_WATER;
             catList.RemoveAt(Variable.catCount);
         }
 
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
         {
             catList[Variable.catCount].targetObj = catList[Variable.catCount - 1].gameObject;
         }
-        catList[Variable.catCount].isChase = true;
+        catList[Variable.catCount].catState = CatState.TOUCH_PLAYER;
         Variable.catCount++;
     }
 
