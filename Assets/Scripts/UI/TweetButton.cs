@@ -22,8 +22,8 @@ public class TweetButton : MonoBehaviour
         Variable.audioSource[1].Play();
         string link = "\n\n" + Variable.gameLink;
         //link = "";
-        string tweetText = "お友達になったﾈｺﾁｬﾝは…\n" + Variable.catCount + " 匹\nでした！みんなもやってみよう！！！" + link + "\n\n#つながるﾈｺﾁｬﾝ\n#unity1week";
-        Application.OpenURL("http://twitter.com/intent/tweet?text=" + WWW.EscapeURL(tweetText));
+        string tweetText = "お友達になったﾈｺﾁｬﾝは…\n" + Variable.catCount + " 匹\nでした！みんなもやってみよう！！！" + "\n\n#つながるﾈｺﾁｬﾝ\n#unity1week\n";
+        //Application.OpenURL("http://twitter.com/intent/tweet?text=" + WWW.EscapeURL(tweetText));
         naichilab.UnityRoomTweet.Tweet("tunagaru_nekochan", tweetText);
 
     }
